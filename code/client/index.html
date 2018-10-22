@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>UMKC Student list</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/student.js"></script>
+</head>
+
+<body ng-app="studentApp" ng-controller="studentCtrl">
+    <div class="text-center ">
+        <h2 class="header-style">Students Database</h2>
+    </div>
+    <div class="container">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-sm-12">
+                        
+                        <div class="modal-body">
+                                <input type="text" ng-model="data.classId" class="form-control margin-top-10px" placeholder="Class Id">
+                                <br>
+                                
+                                <input type="text" ng-model="data.studentName" class="form-control margin-top-10px" placeholder="Student Name">
+                                <br>
+                                <input type="text" ng-model="data.course" class="form-control margin-top-10px" placeholder="Course">
+                                <br>
+                                <select class="form-control" ng-model="data.major">
+                                    <option value="">--Select Major--</option>
+                                    <option>Web Development</option>
+                                    <option>Networking</option>
+                                    <option>Data Science</option>
+                                    <option>Cloud</option>
+                                    <option>Software Engineer</option>
+                                </select>
+                                <br>
+                                <select class="form-control" ng-model="data.minor">
+                                    <option value="">--Select Minor--</option>
+                                    <option>Web Development</option>
+                                    <option>Networking</option>
+                                    <option>Data Science</option>
+                                    <option>Cloud</option>
+                                    <option>Software Engineer</option>
+                                </select>
+                            </div>
+                            <div class="modal-footer">
+                                    <button class="button" type="button" class="btn btn-primary" data-dismiss="modal" ng-click=add()>Add</button>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <select class="form-control" ng-model="term">
+                                    <option value="">--Select Major--</option>
+                                    <option>Web Development</option>
+                                    <option>Networking</option>
+                                    <option>Data Science</option>
+                                    <option>Cloud</option>
+                                    <option>Software Engineer</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" ng-click=search() class="btn btn-primary" ng-if="!isEdit">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Class Id</th>
+                            <th>Student Name</th>
+                            <th>Course</th>
+                            <th>Major</th>
+                            <th>Minor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="student in students">
+                            <td ng-if="!isEdit">{{student.classId}}</td>
+                            <td ng-if="!isEdit">{{student.studentName}}</td>
+                            <td ng-if="!isEdit">{{student.course}}</td>
+                            <td ng-if="!isEdit">{{student.major}}</td>
+                            <td ng-if="!isEdit">{{student.minor}}</td>
+                            <td ng-if="isEdit"><input type="text" class="form-control" ng-model="student.classId" value="{{student.classId}}"></td>
+                            <td ng-if="isEdit"><input type="text" class="form-control" ng-model="student.studentName"
+                                    value="{{student.studentName}}"></td>
+                            <td ng-if="isEdit"><input type="text" class="form-control" ng-model="student.course" value="{{student.course}}"></td>
+                            <td ng-if="isEdit"><input type="text" class="form-control" ng-model="student.major" value="{{student.major}}"></td>
+                            <td ng-if="isEdit"><input type="text" class="form-control" ng-model="student.minor" value="{{student.minor}}"></td>
+                            <td>
+                                <button type="button" ng-click=edit() class="btn btn-primary" ng-if="!isEdit">Edit</button>
+                                <button type="button" ng-click=editsave(student._id) class="btn btn-primary" ng-if="isEdit">Save</button>
+                            </td>
+                            <td>
+                                <button type="button" ng-click=delete(student._id) class="btn btn-primary" ng-if="!isEdit">Delete</button>
+                                <button type="button" ng-click=cancel() class="btn btn-primary" ng-if="isEdit">Cancel</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
